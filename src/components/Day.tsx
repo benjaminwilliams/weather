@@ -1,21 +1,52 @@
 import React from 'react'
 import { CurrentWeather } from '../types'
+import iconMapping from '../utils/iconMapping.ts'
+import styled from '@emotion/styled'
+import dayOfWeek from '../utils/dayOfWeek.ts'
+
+const Container = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  margin: '20px',
+  alignItems: 'center'
+})
+
+const DayOfWeek = styled.h2()
+const TemperatureContainer = styled.div({
+  display: 'flex',
+  flexDirection: 'row'
+})
+
+const temperature = {
+  margin: '3px',
+  fontSize: '14px'
+}
+
+const Max = styled.div({
+  ...temperature,
+  fontWeight: 'bold'
+})
+const Min = styled.div({
+  ...temperature
+})
 
 type Props = {
-  currentWeather: CurrentWeather["daily"],
+  currentWeather: CurrentWeather['daily']
   index: number
 }
-const Day:React.FC<Props> = ({currentWeather, index}:Props) => {
+const Day: React.FC<Props> = ({ currentWeather, index }: Props) => {
+  const icon = iconMapping(currentWeather.weathercode[index])
 
   return (
-    <>
-      <div>date: {currentWeather.time[index]}</div>
-      <div>max: {currentWeather.temperature_2m_max[index]}</div>
-      <div>min: {currentWeather.temperature_2m_min[index]}</div>
-      <div>code: {currentWeather.weathercode[index]}</div>
-    </>
+    <Container>
+      <DayOfWeek>{dayOfWeek(currentWeather.time[index])}</DayOfWeek>
+      <img src={icon.image} alt={icon.name} />
+      <TemperatureContainer>
+        <Max>{currentWeather.temperature_2m_max[index]}&deg;</Max>
+        <Min>{currentWeather.temperature_2m_min[index]}&deg;</Min>
+      </TemperatureContainer>
+    </Container>
   )
-
 }
 
 export default Day

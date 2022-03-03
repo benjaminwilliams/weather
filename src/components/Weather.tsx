@@ -4,18 +4,19 @@ import useGetLocation from '../service/useGetLocation.ts'
 import Day from './Day.tsx'
 import Loading from './Loading.tsx'
 import Error from './Error.tsx'
+import styled from '@emotion/styled'
 
-type WeatherProps = {}
+const Forecast = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  width: '100%'
+})
 
-const Weather: React.FC<WeatherProps> = () => {
+const Weather: React.FC = () => {
   const [city, setCity] = useState<string>('')
   const getWeather = useGetWeather()
   const getLocation = useGetLocation()
   const handleClick = (e) => {
-    e.preventDefault()
-    getData()
-  }
-  const handleClickLocation = (e) => {
     e.preventDefault()
     getLocation.getLocation(city)
   }
@@ -31,12 +32,14 @@ const Weather: React.FC<WeatherProps> = () => {
     <div>
       <label>Location (city)</label>
       <input type="text" value={city} onChange={(e) => setCity(e.target.value)} />
-      <button onClick={(e) => handleClickLocation(e)}> Search weather </button>
+      <button onClick={(e) => handleClick(e)}> Search weather </button>
       {getWeather.loading && <Loading />}
       {getWeather.error && <Error />}
-      {getWeather.data?.daily.time.map((time, index) => {
-        return <Day key={time} currentWeather={getWeather.data.daily} index={index} />
-      })}
+      <Forecast>
+        {getWeather.data?.daily.time.map((time, index) => {
+          return <Day key={time} currentWeather={getWeather.data.daily} index={index} />
+        })}
+      </Forecast>
     </div>
   )
 }
