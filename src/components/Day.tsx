@@ -12,6 +12,7 @@ const Day:React.FC<Props> = ({currentWeather, index}:Props) => {
       <div>date: {currentWeather.time[index]}</div>
       <div>max: {currentWeather.temperature_2m_max[index]}</div>
       <div>min: {currentWeather.temperature_2m_min[index]}</div>
+      <div>code: {currentWeather.weathercode[index]}</div>
     </>
   )
 

@@ -20,7 +20,6 @@ const Weather: React.FC<WeatherProps> = () => {
     getLocation.getLocation(city)
   }
   useEffect(() => {
-    console.log('location changed', getLocation.data)
     if (getLocation.data?.results) {
       // use the first result, it should be the best result
       const latitude = getLocation.data.results[0].latitude
@@ -28,11 +27,11 @@ const Weather: React.FC<WeatherProps> = () => {
       getWeather.getWeather(latitude, longitude)
     }
   }, [getLocation.data])
-console.log('gw', getWeather.data)
   return (
     <div>
+      <label>Location (city)</label>
       <input type="text" value={city} onChange={(e) => setCity(e.target.value)} />
-      <button onClick={(e) => handleClickLocation(e)}> Get Location </button>
+      <button onClick={(e) => handleClickLocation(e)}> Search weather </button>
       {getWeather.loading && <Loading />}
       {getWeather.error && <Error />}
       {getWeather.data?.daily.time.map((time, index) => {

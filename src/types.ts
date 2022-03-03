@@ -11,6 +11,7 @@ export type CurrentWeather = {
     time: string[],
     temperature_2m_max: number[],
     temperature_2m_min: number[]
-    utc_offset_seconds: number
+    utc_offset_seconds: number,
+    weathercode: number
   }
 }

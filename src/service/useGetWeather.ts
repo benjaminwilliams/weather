@@ -13,7 +13,7 @@ type UseGetWeather = {
 const useGetWeather = ():UseGetWeather => {
   const service = useService()
   const getWeather = (latitude, longitude) => {
-  const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,temperature_2m_min&timezone=Australia%2FSydney`
+  const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Australia%2FSydney`
 
     service.getData(url)
   }
