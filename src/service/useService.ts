@@ -4,12 +4,12 @@ import axios from 'axios'
 type UseService = {
   data: any
   getData: () => Promise<any>
-  error: boolean,
-  success: boolean,
+  error: boolean
+  success: boolean
   loading: boolean
 }
 
-const useService = (url): UseService => {
+const useService = (): UseService => {
   const [data, setData] = useState<any>(undefined)
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<boolean>(false)
@@ -21,7 +21,7 @@ const useService = (url): UseService => {
     setError(false)
   }
 
-  const getData = async () => {
+  const getData = async (url) => {
     reset()
     try {
       setLoading(true)
@@ -29,7 +29,7 @@ const useService = (url): UseService => {
         setData(response.data)
         setSuccess(true)
       })
-    } catch(error) {
+    } catch (error) {
       setError(true)
     } finally {
       setLoading(false)

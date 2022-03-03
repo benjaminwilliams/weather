@@ -7,11 +7,18 @@ type UseGetWeather = {
   error: boolean,
   success: boolean,
   loading: boolean
+  getWeather: (latitude: number, longitude: number) => Promise<any>
 }
 
 const useGetWeather = ():UseGetWeather => {
-  const url = 'https://api.open-meteo.com/v1/forecast?latitude=-35.2820&longitude=149.1286&daily=temperature_2m_max,temperature_2m_min&timezone=Australia%2FSydney'
-  return useService(url)
+  const service = useService()
+  const getWeather = (latitude, longitude) => {
+  const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,temperature_2m_min&timezone=Australia%2FSydney`
+
+    service.getData(url)
+  }
+
+  return {...service, getWeather }
 }
 
 export default useGetWeather
