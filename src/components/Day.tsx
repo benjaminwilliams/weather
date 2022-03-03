@@ -1,7 +1,8 @@
 import React from 'react'
+import { CurrentWeather } from '../types'
 
 type Props = {
-  currentWeather: object,
+  currentWeather: CurrentWeather["daily"],
   index: number
 }
 const Day:React.FC<Props> = ({currentWeather, index}:Props) => {
