@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useEffect } from 'react'
+import useGetWeather from '../service/useGetWeather.ts'
 
-type WeatherProps = {};
+type WeatherProps = {}
 
 const Weather: React.FC<WeatherProps> = () => {
-  return <div>W</div>;
-};
+  const { getWeather, currentWeather, error } = useGetWeather()
 
-export default Weather;
+  useEffect(() => {
+    !currentWeather && !error && getWeather()
+  }, [getWeather, error])
+
+  return (
+    <div>
+      {currentWeather?.temperature} <br />
+      {currentWeather?.wind} <br />
+      {currentWeather?.description}
+    </div>
+  )
+}
+
+export default Weather

@@ -3,8 +3,10 @@ import Weather from './components/weather.tsx'
 
 function App() {
   return (
-    <div><Weather /></div>
-  );
+    <div>
+      <Weather />
+    </div>
+  )
 }
 
-export default App;
+export default App
