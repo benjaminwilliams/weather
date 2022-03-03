@@ -5,13 +5,14 @@ type WeatherProps = {}
 
 const Weather: React.FC<WeatherProps> = () => {
   const { getWeather, currentWeather, error } = useGetWeather()
-
-  useEffect(() => {
-    !currentWeather && !error && getWeather()
-  }, [getWeather, error])
+  const handleClick = (e) => {
+    e.preventDefault()
+    getWeather()
+  }
 
   return (
     <div>
+      <button onClick={(e) => handleClick(e)}> Click me </button>
       {currentWeather?.temperature} <br />
       {currentWeather?.wind} <br />
       {currentWeather?.description}
