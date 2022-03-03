@@ -5,30 +5,27 @@ import Day from './Day.tsx'
 import Loading from './Loading.tsx'
 import Error from './Error.tsx'
 import styled from '@emotion/styled'
-
-enum TemperatureUnit {
-  Celsius = 'celsius',
-  Fahrenheit = 'fahrenheit'
-}
+import LocationSearch from './LocationSearch.tsx'
+import { TemperatureUnit } from '../types.ts'
 
 const Forecast = styled.div({
   display: 'flex',
   flexDirection: 'row',
-  maxWidth: '100%'
+  maxWidth: '100%',
+  flexWrap: 'wrap'
 })
 
 const Weather: React.FC = () => {
-  const [city, setCity] = useState<string>('')
-  const [temperatureUnit, setTemperatureUnit] = useState<TemperatureUnit>(
+  const [temperatureUnit, setTemperatureUnit] = useState<string>(
     TemperatureUnit.Celsius
   )
   const getWeather = useGetWeather()
   const getLocation = useGetLocation()
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    getLocation.getLocation(city)
-  }
+  const isLoading = getWeather.loading || getLocation.loading
+  const isError = getWeather.error || getLocation.error
   useEffect(() => {
+    // This needs refactoring, I shouldn't be using the view to call get location
+    // it should be chained from the getLocation call.
     if (getLocation.data?.results) {
       // use the first result, it should be the best result
       const latitude = getLocation.data.results[0].latitude
@@ -38,22 +35,10 @@ const Weather: React.FC = () => {
   }, [getLocation.data])
   return (
     <div>
-      <form onSubmit={(e) => handleSubmit(e)}>
-      <label>
-        Location (city)
-        <input type="text" value={city} onChange={(e) => setCity(e.target.value)} />
-      </label>
-      <label>
-        Units:
-        <select value={temperatureUnit} onChange={(e) => setTemperatureUnit(e.target.value)}>
-          <option value={TemperatureUnit.Celsius}>Metric</option>
-          <option value={TemperatureUnit.Fahrenheit}>Imperial</option>
-        </select>
-      </label>
-      <input type="submit" value="Search weather" />
-    </form>
-      {getWeather.loading && <Loading />}
-      {getWeather.error && <Error />}
+      <LocationSearch getLocation={getLocation} temperatureUnit={temperatureUnit} setTemperatureUnit={setTemperatureUnit}/>
+      {isLoading && <Loading />}
+      {isError && <Error />}
+      {getLocation.data && <h2>{getLocation.data?.results[0].name}</h2>}
       <Forecast>
         {getWeather.data?.daily.time.map((time, index) => {
           return <Day key={time} currentWeather={getWeather.data.daily} index={index} />

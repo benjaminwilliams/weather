@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import axios from 'axios'
 
-type UseService = {
+export type UseService = {
   data: any
-  getData: () => Promise<any>
+  getData: (url:string) => Promise<any>
   error: boolean
   success: boolean
   loading: boolean

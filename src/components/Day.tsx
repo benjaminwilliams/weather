@@ -9,7 +9,8 @@ const Container = styled.div({
   flexDirection: 'column',
   flexWrap: 'wrap',
   margin: '20px',
-  alignItems: 'center'
+  alignItems: 'center',
+  maxWidth: '100%'
 })
 const DayOfWeek = styled.h2()
 const TemperatureContainer = styled.div({

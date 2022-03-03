@@ -1,13 +1,8 @@
-import { CurrentWeather } from '../types'
+import { TemperatureUnit } from '../types'
 import useService from './useService.ts'
 
-type UseGetWeather = {
-  data: CurrentWeather
-  getData: () => Promise<any>
-  error: boolean,
-  success: boolean,
-  loading: boolean
-  getWeather: (latitude: number, longitude: number) => Promise<any>
+export interface UseGetWeather extends UseService {
+  getWeather: (latitude: string, longitude: string, temperatureUnit: TemperatureUnit) => void
 }
 
 const useGetWeather = ():UseGetWeather => {

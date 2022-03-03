@@ -6,6 +6,7 @@ const Container = styled.div({
 })
 
 const Loading: React.FC = () => {
+  // Generic error for now, could be extended to display more information
   return <Container>
     Error, please try again
   </Container>

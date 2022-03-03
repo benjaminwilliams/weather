@@ -15,3 +15,8 @@ export type CurrentWeather = {
     weathercode: number
   }
 }
+
+export enum TemperatureUnit {
+  Celsius = 'celsius',
+  Fahrenheit = 'fahrenheit'
+}
