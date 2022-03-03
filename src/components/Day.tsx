@@ -7,21 +7,19 @@ import dayOfWeek from '../utils/dayOfWeek.ts'
 const Container = styled.div({
   display: 'flex',
   flexDirection: 'column',
+  flexWrap: 'wrap',
   margin: '20px',
   alignItems: 'center'
 })
-
 const DayOfWeek = styled.h2()
 const TemperatureContainer = styled.div({
   display: 'flex',
   flexDirection: 'row'
 })
-
 const temperature = {
   margin: '3px',
   fontSize: '14px'
 }
-
 const Max = styled.div({
   ...temperature,
   fontWeight: 'bold'
@@ -34,6 +32,7 @@ type Props = {
   currentWeather: CurrentWeather['daily']
   index: number
 }
+
 const Day: React.FC<Props> = ({ currentWeather, index }: Props) => {
   const icon = iconMapping(currentWeather.weathercode[index])
 

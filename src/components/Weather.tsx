@@ -6,17 +6,25 @@ import Loading from './Loading.tsx'
 import Error from './Error.tsx'
 import styled from '@emotion/styled'
 
+enum TemperatureUnit {
+  Celsius = 'celsius',
+  Fahrenheit = 'fahrenheit'
+}
+
 const Forecast = styled.div({
   display: 'flex',
   flexDirection: 'row',
-  width: '100%'
+  maxWidth: '100%'
 })
 
 const Weather: React.FC = () => {
   const [city, setCity] = useState<string>('')
+  const [temperatureUnit, setTemperatureUnit] = useState<TemperatureUnit>(
+    TemperatureUnit.Celsius
+  )
   const getWeather = useGetWeather()
   const getLocation = useGetLocation()
-  const handleClick = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
     getLocation.getLocation(city)
   }
@@ -25,14 +33,25 @@ const Weather: React.FC = () => {
       // use the first result, it should be the best result
       const latitude = getLocation.data.results[0].latitude
       const longitude = getLocation.data.results[0].longitude
-      getWeather.getWeather(latitude, longitude)
+      getWeather.getWeather(latitude, longitude, temperatureUnit)
     }
   }, [getLocation.data])
   return (
     <div>
-      <label>Location (city)</label>
-      <input type="text" value={city} onChange={(e) => setCity(e.target.value)} />
-      <button onClick={(e) => handleClick(e)}> Search weather </button>
+      <form onSubmit={(e) => handleSubmit(e)}>
+      <label>
+        Location (city)
+        <input type="text" value={city} onChange={(e) => setCity(e.target.value)} />
+      </label>
+      <label>
+        Units:
+        <select value={temperatureUnit} onChange={(e) => setTemperatureUnit(e.target.value)}>
+          <option value={TemperatureUnit.Celsius}>Metric</option>
+          <option value={TemperatureUnit.Fahrenheit}>Imperial</option>
+        </select>
+      </label>
+      <input type="submit" value="Search weather" />
+    </form>
       {getWeather.loading && <Loading />}
       {getWeather.error && <Error />}
       <Forecast>

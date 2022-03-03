@@ -19,6 +19,7 @@ const useService = (): UseService => {
     setLoading(false)
     setSuccess(false)
     setError(false)
+    setData(undefined)
   }
 
   const getData = async (url) => {
