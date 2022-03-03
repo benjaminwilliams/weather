@@ -8,6 +8,9 @@ type Forecast = {
 }
 
 type CurrentWeather = {
+  daily: {
+    time: string[]
+  }
   temprature: string
   wind: string
   description: string
@@ -32,14 +35,19 @@ const useGetWeather = (): UseGetWeather => {
     setError(false)
   }
 
-  const url = 'https://goweather.herokuapp.com/weather/Melbourne'
+  const formatData = (data) => {
+    return data
+  }
+
+  const url = 'https://api.open-meteo.com/v1/forecast?latitude=-35.2820&longitude=149.1286&daily=temperature_2m_max,temperature_2m_min&timezone=Australia%2FSydney'
   const getWeather = async (onSuccess: () => void) => {
     reset()
     try {
       setLoading(true)
       await axios.get(url).then((response) => {
+        const formatedData = formatData(response.data)
+        setCurrentWeather(formatedData)
         setSuccess(true)
-        setCurrentWeather(response.data)
       })
     } catch(error) {
       setError(true)
