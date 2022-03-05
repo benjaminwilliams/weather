@@ -1,5 +1,5 @@
 import { renderHook, act } from '@testing-library/react-hooks'
-import useService from '../useService.ts'
+import useService from '../useService'
 import axios from 'axios'
 
 jest.mock('axios')
