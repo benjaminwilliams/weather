@@ -2,7 +2,7 @@ import React from 'react'
 import { CurrentWeather } from '../types'
 import iconMapping from '../utils/iconMapping.ts'
 import styled from '@emotion/styled'
-import dayOfWeek from '../utils/dayOfWeek.ts'
+import dayOfWeek from '../utils/dayOfWeek'
 
 const Container = styled.div({
   display: 'flex',
