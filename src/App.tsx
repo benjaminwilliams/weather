@@ -1,6 +1,6 @@
 import React from 'react'
-import Weather from './components/Weather.tsx'
-import Attribution from './components/Attribution.tsx'
+import Weather from './components/Weather'
+import Attribution from './components/Attribution'
 
 function App() {
   return (

@@ -22,7 +22,7 @@ const useService = (): UseService => {
     setData(undefined)
   }
 
-  const getData = async (url) => {
+  const getData = async (url: string) => {
     reset()
     try {
       setLoading(true)

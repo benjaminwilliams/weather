@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { TemperatureUnit } from '../types.ts'
+import { TemperatureUnit } from '../types'
 import { UseGetLocation } from '../service/useGetLocation'
 import styled from '@emotion/styled'
 
@@ -26,18 +26,22 @@ const SubmitInput = styled.input({
 })
 
 type Props = {
-  getLocation: UseGetLocation,
-  temperatureUnit: typeof TemperatureUnit,
-  setTemperatureUnit: (unit: typeof TemperatureUnit) => void
+  getLocation: UseGetLocation
+  temperatureUnit: TemperatureUnit
+  setTemperatureUnit: (unit: TemperatureUnit) => void
 }
 
-const LocationSearch: React.FC<Props> = ({getLocation, temperatureUnit, setTemperatureUnit}:Props) => {
+const LocationSearch: React.FC<Props> = ({
+  getLocation,
+  temperatureUnit,
+  setTemperatureUnit
+}: Props) => {
   const [city, setCity] = useState<string>('')
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     getLocation.getLocation(city)
   }
-  return(
+  return (
     <Form onSubmit={(e) => handleSubmit(e)}>
       <Label>
         Location (city)
@@ -45,7 +49,7 @@ const LocationSearch: React.FC<Props> = ({getLocation, temperatureUnit, setTempe
       </Label>
       <Label>
         Units:
-        <SelectUnit value={temperatureUnit} onChange={(e) => setTemperatureUnit(e.target.value)}>
+        <SelectUnit value={temperatureUnit} onChange={(e) => setTemperatureUnit(e.target.value as TemperatureUnit)}>
           <option value={TemperatureUnit.Celsius}>Metric</option>
           <option value={TemperatureUnit.Fahrenheit}>Imperial</option>
         </SelectUnit>

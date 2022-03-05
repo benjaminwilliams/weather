@@ -1,12 +1,12 @@
-import useService from './useService.ts'
+import useService, {UseService} from './useService'
 
 export interface UseGetLocation extends UseService {
   getLocation: (name: string) => void
 }
 
-const useGetLocation = ():UseGetService => {
+const useGetLocation = ():UseGetLocation => {
   const service = useService()
-  const getLocation = (name) => {
+  const getLocation = (name:string) => {
     const url = `https://geocoding-api.open-meteo.com/v1/search?name=${name}`
     service.getData(url)
   }

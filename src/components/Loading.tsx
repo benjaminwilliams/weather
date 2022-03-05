@@ -6,9 +6,7 @@ const Container = styled.div({
 })
 
 const Loading: React.FC = () => {
-  return <Container>
-    Loading...
-  </Container>
+  return <Container>Loading...</Container>
 }
 
 export default Loading

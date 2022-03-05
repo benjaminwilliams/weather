@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import useGetWeather from '../service/useGetWeather.ts'
-import useGetLocation from '../service/useGetLocation.ts'
-import Day from './Day.tsx'
-import Loading from './Loading.tsx'
-import Error from './Error.tsx'
+import useGetWeather from '../service/useGetWeather'
+import useGetLocation from '../service/useGetLocation'
+import Day from './Day'
+import Loading from './Loading'
+import Error from './Error'
 import styled from '@emotion/styled'
-import LocationSearch from './LocationSearch.tsx'
-import { TemperatureUnit } from '../types.ts'
+import LocationSearch from './LocationSearch'
+import { TemperatureUnit } from '../types'
 
 const Forecast = styled.div({
   display: 'flex',
@@ -16,7 +16,7 @@ const Forecast = styled.div({
 })
 
 const Weather: React.FC = () => {
-  const [temperatureUnit, setTemperatureUnit] = useState<string>(
+  const [temperatureUnit, setTemperatureUnit] = useState<TemperatureUnit>(
     TemperatureUnit.Celsius
   )
   const getWeather = useGetWeather()
@@ -40,7 +40,7 @@ const Weather: React.FC = () => {
       {isError && <Error />}
       {getLocation.data && <h2>{getLocation.data?.results[0].name}</h2>}
       <Forecast>
-        {getWeather.data?.daily.time.map((time, index) => {
+        {getWeather.data?.daily.time.map((time:string, index:number) => {
           return <Day key={time} currentWeather={getWeather.data.daily} index={index} />
         })}
       </Forecast>

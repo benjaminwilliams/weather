@@ -1,6 +1,6 @@
 import React from 'react'
 import { CurrentWeather } from '../types'
-import iconMapping from '../utils/iconMapping.ts'
+import iconMapping from '../utils/iconMapping'
 import styled from '@emotion/styled'
 import dayOfWeek from '../utils/dayOfWeek'
 
@@ -35,7 +35,8 @@ type Props = {
 }
 
 const Day: React.FC<Props> = ({ currentWeather, index }: Props) => {
-  const icon = iconMapping(currentWeather.weathercode[index])
+  const iconType = currentWeather.weathercode[index]
+  const icon = iconMapping(iconType)
 
   return (
     <Container>
