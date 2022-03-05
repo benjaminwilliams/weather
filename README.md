@@ -27,9 +27,10 @@ tests can be run wih `npm run test`
 * Styling is very barebones
   * style for specific device types to ensure it looks good
   * add global styles to make inputs, headers etc look better
-* all imports include file extensions. This should be removed, but there is a config issue with webpack I have not had time to figure out.
+* ~~all imports include file extensions. This should be removed, but there is a config issue with webpack I have not had time to figure out.~~
 
 ## Resources
 * Weather API from [Open Metro](https://open-meteo.com)
+      'https://geocoding-api.open-meteo.com/v1/search?name=abcdefg'
 * Weather icons from  [Icons8](https://icons8.com)
 * Created with [Create React App](https://create-react-app.dev/)

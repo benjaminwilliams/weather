@@ -36,7 +36,7 @@ const LocationSearch: React.FC<Props> = ({
   temperatureUnit,
   setTemperatureUnit
 }: Props) => {
-  const [city, setCity] = useState<string>('III')
+  const [city, setCity] = useState<string>('')
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     getLocation.getLocation(city)
@@ -49,7 +49,10 @@ const LocationSearch: React.FC<Props> = ({
       </Label>
       <Label>
         Units:
-        <SelectUnit value={temperatureUnit} onChange={(e) => setTemperatureUnit(e.target.value as TemperatureUnit)}>
+        <SelectUnit
+          value={temperatureUnit}
+          onChange={(e) => setTemperatureUnit(e.target.value as TemperatureUnit)}
+        >
           <option value={TemperatureUnit.Celsius}>Metric</option>
           <option value={TemperatureUnit.Fahrenheit}>Imperial</option>
         </SelectUnit>
