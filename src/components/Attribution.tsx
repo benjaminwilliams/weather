@@ -17,7 +17,7 @@ const Attribution = () => (
       </a>
     </div>
     <div>
-      Weather data from
+      Weather data from{' '}
       <a target="_blank" rel="noreferrer" href="https://open-meteo.com">
         Open Metro
       </a>

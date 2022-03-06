@@ -3,16 +3,24 @@ import { CurrentWeather } from '../types'
 import iconMapping from '../utils/iconMapping'
 import styled from '@emotion/styled'
 import dayOfWeek from '../utils/dayOfWeek'
+import breakpoints from '../styles/breakPoints'
 
 const Container = styled.div({
   display: 'flex',
   flexDirection: 'column',
   flexWrap: 'wrap',
-  margin: '20px',
+  margin: '5px 20px',
+  padding: '15px',
   alignItems: 'center',
-  maxWidth: '100%'
+  minWidth: '140px',
+  border: '1px solid #eee',
+  width: '100%',
+  [breakpoints.small]: {
+    width: 'inherit',
+    margin: '5px'
+  }
 })
-const DayOfWeek = styled.h2()
+const DayOfWeek = styled.h3()
 const TemperatureContainer = styled.div({
   display: 'flex',
   flexDirection: 'row'

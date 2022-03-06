@@ -2,27 +2,44 @@ import React, { useState } from 'react'
 import { TemperatureUnit } from '../types'
 import { UseGetLocation } from '../service/useGetLocation'
 import styled from '@emotion/styled'
+import breakpoints from '../styles/breakPoints'
 
 const Form = styled.form({
   display: 'flex',
   flexWrap: 'wrap',
-  alignItems: 'baseline'
+  alignItems: 'baseline',
+  margin: '20px',
+  padding: '30px',
+  backgroundColor: '#fff6ea',
+  border: '1px solid #ffe5c1'
 })
+
 const Label = styled.label({
-  fontSize: '14px',
-  margin: '20px'
+  width: '100%',
+  [breakpoints.small]: {
+    width: 'inherit'
+  }
 })
 
 const CityInput = styled.input({
-  display: 'block'
+  display: 'block',
+  width: '100%',
+  [breakpoints.small]: {
+    width: 'inherit'
+  }
 })
 
 const SelectUnit = styled.select({
-  display: 'block'
+  display: 'block',
+  width: '100%'
 })
 const SubmitInput = styled.input({
-  height: '35px',
-  alignSelf: 'center'
+  width: '100%',
+  margin: '10px',
+  alignSelf: 'end',
+  [breakpoints.small]: {
+    width: 'inherit'
+  }
 })
 
 type Props = {

@@ -7,18 +7,26 @@ import Error from './Error'
 import styled from '@emotion/styled'
 import LocationSearch from './LocationSearch'
 import { TemperatureUnit } from '../types'
+import NoResults from './NoResults'
+import breakpoints from '../styles/breakPoints'
+
+const City = styled.h2({
+  margin: '40px 20px 20px 20px'
+})
 
 const Forecast = styled.div({
   display: 'flex',
   flexDirection: 'row',
   maxWidth: '100%',
-  flexWrap: 'wrap'
+  flexWrap: 'wrap',
+  margin: '0',
+  [breakpoints.small]: {
+    margin: '0 15px'
+  }
 })
 
 const Weather: React.FC = () => {
-  const [temperatureUnit, setTemperatureUnit] = useState<TemperatureUnit>(
-    TemperatureUnit.Celsius
-  )
+  const [temperatureUnit, setTemperatureUnit] = useState<TemperatureUnit>(TemperatureUnit.Celsius)
   const getWeather = useGetWeather()
   const getLocation = useGetLocation()
   const isLoading = getWeather.loading || getLocation.loading
@@ -33,17 +41,27 @@ const Weather: React.FC = () => {
       getWeather.getWeather(latitude, longitude, temperatureUnit)
     }
   }, [getLocation.data])
+  const hasResults = !(
+    getLocation.data?.generationtime_ms && getLocation.data?.results === undefined
+  )
   return (
     <div>
-      <LocationSearch getLocation={getLocation} temperatureUnit={temperatureUnit} setTemperatureUnit={setTemperatureUnit}/>
-      {isLoading && <Loading />}
+      <LocationSearch
+        getLocation={getLocation}
+        temperatureUnit={temperatureUnit}
+        setTemperatureUnit={setTemperatureUnit}
+      />
       {isError && <Error />}
-      {getLocation.data && <h2>{getLocation.data?.results[0].name}</h2>}
-      <Forecast>
-        {getWeather.data?.daily.time.map((time:string, index:number) => {
-          return <Day key={time} currentWeather={getWeather.data.daily} index={index} />
-        })}
-      </Forecast>
+      {!hasResults && <NoResults />}
+      <City>{getLocation.data?.results && getLocation.data?.results[0].name}</City>
+      {isLoading && <Loading />}
+      {hasResults && (
+        <Forecast>
+          {getWeather.data?.daily.time.map((time: string, index: number) => {
+            return <Day key={time} currentWeather={getWeather.data.daily} index={index} />
+          })}
+        </Forecast>
+      )}
     </div>
   )
 }
